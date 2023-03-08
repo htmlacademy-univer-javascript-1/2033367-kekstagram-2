@@ -1,5 +1,5 @@
-const getRandomNumber = function (leftEdge, rightEdge) { 
-  if (leftEdge => rightEdge) { 
+const getRandomNumber = function (leftEdge, rightEdge) {
+  if (rightEdge <= leftEdge) {
     return 'Левая граница диапазона больше или равна правой!';
   } else {
     leftEdge = Math.ceil(leftEdge);
@@ -9,3 +9,6 @@ const getRandomNumber = function (leftEdge, rightEdge) {
 };
 
 const checkStringLength = (checkedString, maxLength) => checkedString.length <= maxLength;
+
+getRandomNumber(10, 50);
+checkStringLength("qwerty", 7);
