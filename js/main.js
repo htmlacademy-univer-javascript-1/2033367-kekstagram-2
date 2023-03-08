@@ -11,4 +11,4 @@ const getRandomNumber = function (leftEdge, rightEdge) {
 const checkStringLength = (checkedString, maxLength) => checkedString.length <= maxLength;
 
 getRandomNumber(10, 50);
-checkStringLength("qwerty", 7);
+checkStringLength('qwerty', 7);
