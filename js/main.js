@@ -47,9 +47,9 @@ const createMockComments = (commentsCount) => {
 };
 
 const createMockDescriptions = (rowsCount) => {
-  let descriptions = [];
+  const descriptions = [];
   for (let i = 1; i <= rowsCount; i++) {
-    let descriptionObj = {
+    const descriptionObj = {
       id: rowsCount,
       url: `photos/${rowsCount}.jpg`,
       description: 'Крутая фотография моего кота',
