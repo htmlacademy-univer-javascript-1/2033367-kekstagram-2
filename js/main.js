@@ -22,45 +22,45 @@ const mockNames = [
 
 
 const getRandomNumber = function (leftEdge, rightEdge) {
-    const minimum = Math.ceil(Math.min(Math.abs(leftEdge), Math.abs(rightEdge)));
-    const maximum = Math.floor(Math.max(Math.abs(leftEdge), Math.abs(rightEdge)));
-    return Math.floor(Math.random() * (maximum - minimum + 1) + minimum);
+  const minimum = Math.ceil(Math.min(Math.abs(leftEdge), Math.abs(rightEdge)));
+  const maximum = Math.floor(Math.max(Math.abs(leftEdge), Math.abs(rightEdge)));
+  return Math.floor(Math.random() * (maximum - minimum + 1) + minimum);
 };
 
 const checkStringLength = (checkedString, maxLength) => checkedString.length <= maxLength;
 
 const createMockComments = (commentsCount) => {
-    let comments = [];
-    for (let i = 0; i < commentsCount; i++) {
-        let commentObj = {
-            id: i,
-            avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
-            message: 
-            `${mockMessages[getRandomNumber(0, mockMessages.length - 1)]}
-            ${mockMessages[getRandomNumber(0, mockMessages.length - 1)]}`,
-            name: mockNames[getRandomNumber(0, mockNames.length - 1)],
-        };
-
-        comments.push(commentObj);
+  const comments = [];
+  for (let i = 0; i < commentsCount; i++) {
+    const commentObj = {
+      id: i,
+      avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
+      message:
+      `${mockMessages[getRandomNumber(0, mockMessages.length - 1)]}
+      ${mockMessages[getRandomNumber(0, mockMessages.length - 1)]}`,
+      name: mockNames[getRandomNumber(0, mockNames.length - 1)],
     };
-    return comments;
-}
+    comments.push(commentObj);
+  }
+
+  return comments;
+};
 
 const createMockDescriptions = (rowsCount) => {
-    let descriptions = [];
-    for (let i = 1; i <= rowsCount; i++) {
-        let descriptionObj = {
-            id: rowsCount,
-            url: `photos/${rowsCount}.jpg`,
-            description: "Крутая фотография моего кота",
-            likes: getRandomNumber(15, 200),
-            comments: createMockComments(getRandomNumber(1, 10)),
-        }
-
-        descriptions.push(descriptionObj);
+  let descriptions = [];
+  for (let i = 1; i <= rowsCount; i++) {
+    let descriptionObj = {
+      id: rowsCount,
+      url: `photos/${rowsCount}.jpg`,
+      description: 'Крутая фотография моего кота',
+      likes: getRandomNumber(15, 200),
+      comments: createMockComments(getRandomNumber(1, 10)),
     };
-    return descriptions;
-} 
+    descriptions.push(descriptionObj);
+  }
+
+  return descriptions;
+};
 
 checkStringLength('qwerty', 7);
-console.log(createMockDescriptions(25));
+createMockDescriptions(25);
