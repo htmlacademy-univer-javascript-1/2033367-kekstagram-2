@@ -3,7 +3,7 @@ const getRandomNumber = function (leftEdge, rightEdge) {
   const maximum = Math.floor(Math.max(Math.abs(leftEdge), Math.abs(rightEdge)));
   return Math.floor(Math.random() * (maximum - minimum + 1) + minimum);
 };
-  
+
 const checkStringLength = (checkedString, maxLength) => checkedString.length <= maxLength;
 
 export {getRandomNumber, checkStringLength};
