@@ -1,5 +1,5 @@
-import { createMockDescriptions } from './data.js';
 import { checkStringLength } from './util.js';
+import { start } from './controller.js';
 
 checkStringLength('qwerty', 7);
-createMockDescriptions(25);
+start();
