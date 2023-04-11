@@ -1,5 +1,5 @@
-import { createMiniature } from "./miniatures.js";
-import { createMockDescription } from './data.js'; 
+import { createMiniature } from './miniatures.js';
+import { createMockDescription } from './data.js';
 
 const miniaturesList = [];
 
@@ -8,6 +8,6 @@ const start = function() {
     const miniature = createMiniature(createMockDescription(i));
     miniaturesList.push(miniature);
   }
-}
+};
 
 export { start };

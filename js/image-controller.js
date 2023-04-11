@@ -20,15 +20,15 @@ const revealMiniature = function (url, likes, comments, description) {
   commentsCount.textContent = comments.length;
   descriptionNode.textContent = description;
 
-  comments.forEach(comment => {
-    let commentNode = commentTemplate.cloneNode(true);
-    let commentImage = commentNode.querySelector('img');
+  comments.forEach((comment) => {
+    const commentNode = commentTemplate.cloneNode(true);
+    const commentImage = commentNode.querySelector('img');
     commentImage.src = comment.avatar;
     commentImage.alt = comment.name;
     commentNode.querySelector('p').textContent = comment.message;
 
     commentsList.append(commentNode);
-  });  
+  });
 };
 
 const closeMiniature = function() {
@@ -40,7 +40,9 @@ const closeMiniature = function() {
 
 closeButton.addEventListener('click', closeMiniature);
 document.body.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeMiniature();
+  if (e.key === 'Escape') {
+    closeMiniature();
+  }
 });
 
 export { revealMiniature };

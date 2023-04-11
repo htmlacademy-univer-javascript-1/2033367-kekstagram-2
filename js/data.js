@@ -39,15 +39,15 @@ const createMockComments = (commentsCount) => {
   return comments;
 };
 
-const createMockDescription = i => {
-    const descriptionObj = {
-      id: i,
-      url: `photos/${i}.jpg`,
-      likes: getRandomNumber(15, 200),
-      comments: createMockComments(getRandomNumber(1, 10)),
-      description: 'Крутая фотография моего кота'
-    };
+const createMockDescription = (i) => {
+  const descriptionObj = {
+    id: i,
+    url: `photos/${i}.jpg`,
+    likes: getRandomNumber(15, 200),
+    comments: createMockComments(getRandomNumber(1, 10)),
+    description: 'Крутая фотография моего кота'
+  };
   return descriptionObj;
-}
+};
 
 export { createMockDescription };
