@@ -1,4 +1,3 @@
-import { createNewPicture } from './miniatures.js';
 import { getRandomNumber } from './util.js';
 
 const mockMessages = [
@@ -40,21 +39,15 @@ const createMockComments = (commentsCount) => {
   return comments;
 };
 
-const createMockDescriptions = (rowsCount) => {
-  const descriptions = [];
-  for (let i = 1; i <= rowsCount; i++) {
+const createMockDescription = i => {
     const descriptionObj = {
       id: i,
       url: `photos/${i}.jpg`,
-      description: 'Крутая фотография моего кота',
       likes: getRandomNumber(15, 200),
       comments: createMockComments(getRandomNumber(1, 10)),
+      description: 'Крутая фотография моего кота'
     };
-    createNewPicture(descriptionObj.url, descriptionObj.likes, descriptionObj.comments.length);
-    descriptions.push(descriptionObj);
-  }
+  return descriptionObj;
+}
 
-  return descriptions;
-};
-
-export { createMockComments, createMockDescriptions };
+export { createMockDescription };

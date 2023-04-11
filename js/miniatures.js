@@ -1,16 +1,20 @@
-const pictureTemplate = document.querySelector('#picture').content;
-const picturesList = document.querySelector('.pictures');
-const picturesListFragment = document.createDocumentFragment();
+import { revealMiniature } from './image-controller.js';
 
-const createNewPicture = function(url, likes, comments) {
-  const newPicture = pictureTemplate.cloneNode(true);
-  newPicture.querySelector('.picture__img').src = url;
-  newPicture.querySelector('.picture__likes').textContent = likes;
-  newPicture.querySelector('.picture__comments').textContent = comments;
+const miniatureTemplate = document.querySelector('#picture').content;
+const miniaturesList = document.querySelector('.pictures');
+const miniaturesListFragment = document.createDocumentFragment();
 
-  picturesListFragment.appendChild(newPicture);
-  picturesList.append(picturesListFragment);
+const createMiniature = function(miniatureData) {
+  const miniature = miniatureTemplate.cloneNode(true);
+  miniature.querySelector('.picture__img').src = miniatureData.url;
+  miniature.querySelector('.picture__likes').textContent = miniatureData.likes;
+  miniature.querySelector('.picture__comments').textContent = miniatureData.comments.length;
+  miniature.querySelector('.picture__img').addEventListener('click', () => {
+    revealMiniature(miniatureData.url, miniatureData.likes, miniatureData.comments, miniatureData.description);
+  });
+  miniaturesListFragment.appendChild(miniature);
+
+  miniaturesList.append(miniaturesListFragment);
 };
 
-export { createNewPicture };
-
+export { createMiniature };
