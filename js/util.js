@@ -6,4 +6,4 @@ const getRandomNumber = function (leftEdge, rightEdge) {
 
 const checkStringLength = (checkedString, maxLength) => checkedString.length <= maxLength;
 
-export {getRandomNumber, checkStringLength};
+export { getRandomNumber, checkStringLength };
