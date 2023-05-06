@@ -1,4 +1,4 @@
-import { revealMiniature } from './image-controller.js';
+import { revealMiniature } from './controller/image-controller.js';
 
 const miniatureTemplate = document.querySelector('#picture').content;
 const miniaturesList = document.querySelector('.pictures');
