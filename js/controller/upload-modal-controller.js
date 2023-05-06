@@ -19,7 +19,7 @@ const pristine = new Pristine(uploadModalForm, { classTo: 'img-upload__field-wra
 const validateHashtag = (value) => value.match(/^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/);
 
 function validateHashtags(value) {
-  if (value === '') { return true };
+  if (value === '') { return true; }
   const hashtags = value.trim().toLowerCase().split(' ');
   return hashtags.every(validateHashtag) && hashtags.length <= 5 && (new Set(hashtags)).size === hashtags.length;
 }
@@ -77,15 +77,15 @@ uploadModalCloseElement.addEventListener('click', (evt) => {
 });
 
 uploadModalForm.addEventListener('submit', (evt) => {
-  if(!pristine.validate()) { evt.preventDefault() };
+  if(!pristine.validate()) { evt.preventDefault(); }
 });
 
 hashtagInput.addEventListener('keydown', (evt) => {
   evt.stopPropagation();
-  if(isEscapeKey(evt)) { hashtagInput.blur() };
+  if(isEscapeKey(evt)) { hashtagInput.blur(); }
 });
 
 descriptionInput.addEventListener('keydown', (evt) => {
   evt.stopPropagation();
-  if(isEscapeKey(evt)) { descriptionInput.blur() };
+  if(isEscapeKey(evt)) { descriptionInput.blur(); }
 });
