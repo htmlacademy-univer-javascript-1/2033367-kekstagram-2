@@ -42,7 +42,7 @@ const closeMiniature = function() {
 
 closeButton.addEventListener('click', closeMiniature);
 document.body.addEventListener('keydown', (evt) => {
-  if (isEscapeKey(evt)) { 
+  if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeMiniature();
   }
