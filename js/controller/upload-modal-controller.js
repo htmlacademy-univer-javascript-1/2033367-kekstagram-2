@@ -117,6 +117,9 @@ function closeUploadModal() {
   document.removeEventListener('keydown', onModalEscKeydown);
   document.body.classList.remove('modal-open');
 
+  currentFilter = 'none';
+  previewImage.className = '';
+  previewImage.style = '';
   uploadModalForm.reset();
 }
 
