@@ -14,7 +14,7 @@ let currentComments = undefined;
 
 const revealComments = function(offset) {
   let revealedCommentsCount = +showedCommentsCount.textContent;
-  currentComments.slice(revealedCommentsCount, revealedCommentsCount + offset).forEach(comment => { 
+  currentComments.slice(revealedCommentsCount, revealedCommentsCount + offset).forEach((comment) => {
     const commentNode = commentTemplate.cloneNode(true);
     const commentImage = commentNode.querySelector('img');
     commentImage.src = comment.avatar;
@@ -31,7 +31,7 @@ const revealComments = function(offset) {
   } else {
     document.querySelector('.comments-loader').classList.remove('hidden');
   }
-}
+};
 
 const revealMiniature = function(url, likes, comments, description) {
   bigPicture.classList.remove('hidden');
@@ -47,7 +47,7 @@ const revealMiniature = function(url, likes, comments, description) {
   revealComments(5);
 
   document.querySelector('.comments-loader').addEventListener('click', () => {
-    revealComments(5);  
+    revealComments(5);
   });
 };
 
