@@ -21,7 +21,7 @@ const effectFiltersParams = {
   marvin: { min: 0, max: 100, step: 1, unit: '%', param: 'invert' },
   phobos: { min: 0, max: 3, step: 0.1, unit: 'px', param: 'blur' },
   heat: { min: 1, max: 3, step: 0.1, unit: '', param: 'brightness' },
-}
+};
 
 let scaleValue = 1;
 let currentFilter = 'none';
@@ -98,9 +98,9 @@ const onModalEscKeydown = (evt) => {
   }
 };
 
-function changePreviewScale(scaleValue) {
-  previewImage.style = `transform: scale(${scaleValue})`;
-  scaleControlValue.value = `${scaleValue * 100}%`;
+function changePreviewScale(value) {
+  previewImage.style = `transform: scale(${value})`;
+  scaleControlValue.value = `${value * 100}%`;
 }
 
 function openUploadModal() {
@@ -154,11 +154,11 @@ scaleControlBigger.addEventListener('click', () => {
   if(scaleValue < 1) { changePreviewScale(scaleValue += 0.25); }
 });
 
-effectsRadioButtons.forEach(radioButton => {
+effectsRadioButtons.forEach((radioButton) => {
   radioButton.addEventListener('click', () => {
     previewImage.className = `effects__preview--${radioButton.value}`;
     currentFilter = radioButton.value;
-    if(currentFilter !== 'none') { 
+    if(currentFilter !== 'none') {
       effectSliderElement.hidden = false;
       effectSliderElement.noUiSlider.updateOptions({
         range: {
