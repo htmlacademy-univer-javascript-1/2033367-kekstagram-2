@@ -13,14 +13,14 @@ const createMiniature = function(miniatureData) {
     revealMiniature(miniatureData.url, miniatureData.likes, miniatureData.comments, miniatureData.description);
   });
   miniaturesListFragment.appendChild(miniature);
-
   miniaturesList.append(miniaturesListFragment);
 };
 
-const renderPhotos = function(photos) {
+function renderPhotos(photos) {
+  miniaturesList.querySelectorAll('.picture').forEach((miniature) => { miniature.remove(); });
   photos.forEach((photo) => {
     createMiniature(photo);
   });
-};
+}
 
 export { renderPhotos };
