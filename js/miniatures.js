@@ -14,7 +14,7 @@ const createMiniature = function(miniatureData) {
   });
   miniaturesListFragment.appendChild(miniature);
   miniaturesList.append(miniaturesListFragment);
-};
+}
 
 function renderPhotos(photos) {
   miniaturesList.querySelectorAll('.picture').forEach((miniature) => { miniature.remove(); });

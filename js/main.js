@@ -9,7 +9,7 @@ const receivePhotos = () => {
   }, (errorText) => {
     showErrorMessage(errorText);
   });
-}
+};
 
 revealFilters();
 receivePhotos();
