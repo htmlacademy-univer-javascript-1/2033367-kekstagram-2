@@ -1,9 +1,12 @@
 import { isEscapeKey } from '../util.js';
+import { postPhoto } from '../api.js';
+import { showSuccessMessage, showErrorMessage } from './message-modal-controller.js';
 import '../../nouislider/nouislider.js';
 
 const uploadModalElement = document.querySelector('.img-upload__overlay');
 const uploadModalCloseElement = document.getElementById('upload-cancel');
 const uploadModalForm = document.getElementById('upload-select-image');
+const submitButton = document.getElementById('upload-submit');
 const filenameInput = document.querySelector('[name="filename"]');
 const hashtagInput = document.querySelector('[name="hashtags"]');
 const descriptionInput = document.querySelector('[name="description"]');
@@ -84,9 +87,19 @@ noUiSlider.create(effectSliderElement, {
 effectSliderElement.noUiSlider.on('update', () => {
   effectValueElement.value = effectSliderElement.noUiSlider.get();
   if(currentFilter !== 'none') {
-    previewImage.style = `filter: ${effectFiltersParams[currentFilter].param}(${effectValueElement.value}${effectFiltersParams[currentFilter].unit})`;
+    previewImage.style.filter = `${effectFiltersParams[currentFilter].param}(${effectValueElement.value}${effectFiltersParams[currentFilter].unit})`;
   }
 });
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Сохранение фото...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
 
 /**
  * Открытие/Закрытие формы
@@ -99,28 +112,32 @@ const onModalEscKeydown = (evt) => {
 };
 
 function changePreviewScale(value) {
-  previewImage.style = `transform: scale(${value})`;
+  previewImage.style.scale = `${value}`;
   scaleControlValue.value = `${value * 100}%`;
 }
 
-function openUploadModal() {
-  uploadModalElement.classList.remove('hidden');
-  document.addEventListener('keydown', onModalEscKeydown);
-  document.body.classList.add('modal-open');
-
-  changePreviewScale(1);
-  effectSliderElement.hidden = true;
-}
-
-function closeUploadModal() {
-  uploadModalElement.classList.add('hidden');
-  document.removeEventListener('keydown', onModalEscKeydown);
-  document.body.classList.remove('modal-open');
-
+function resetUploadModal() {
+  scaleValue = 1;
   currentFilter = 'none';
   previewImage.className = '';
   previewImage.style = '';
+  changePreviewScale(1);
+  effectSliderElement.hidden = true;
   uploadModalForm.reset();
+};
+
+function openUploadModal() {
+  effectSliderElement.hidden = true;
+  uploadModalElement.classList.remove('hidden');
+  document.addEventListener('keydown', onModalEscKeydown);
+  document.body.classList.add('modal-open');
+}
+
+function closeUploadModal() {
+  resetUploadModal();
+  uploadModalElement.classList.add('hidden');
+  document.removeEventListener('keydown', onModalEscKeydown);
+  document.body.classList.remove('modal-open');
 }
 
 /**
@@ -136,7 +153,23 @@ uploadModalCloseElement.addEventListener('click', (evt) => {
 });
 
 uploadModalForm.addEventListener('submit', (evt) => {
-  if(!pristine.validate()) { evt.preventDefault(); }
+  evt.preventDefault();
+
+  if(pristine.validate()) { 
+    blockSubmitButton();
+    postPhoto(
+      (successText) => {
+        showSuccessMessage(successText);
+        unblockSubmitButton();
+        closeUploadModal();
+      },
+      (errorText) => {
+        showErrorMessage(errorText);
+        unblockSubmitButton();
+      },
+      new FormData(evt.target),
+    );
+  }
 });
 
 hashtagInput.addEventListener('keydown', (evt) => {
@@ -162,7 +195,6 @@ effectsRadioButtons.forEach((radioButton) => {
     previewImage.className = `effects__preview--${radioButton.value}`;
     currentFilter = radioButton.value;
     if(currentFilter !== 'none') {
-      effectSliderElement.hidden = false;
       effectSliderElement.noUiSlider.updateOptions({
         range: {
           min: effectFiltersParams[currentFilter].min,
@@ -172,7 +204,9 @@ effectsRadioButtons.forEach((radioButton) => {
         step: effectFiltersParams[currentFilter].step,
       });
       effectSliderElement.noUiSlider.set(effectFiltersParams[currentFilter].max);
+      effectSliderElement.hidden = false;
     } else {
+      previewImage.style.filter = '';
       effectSliderElement.hidden = true;
     }
   });

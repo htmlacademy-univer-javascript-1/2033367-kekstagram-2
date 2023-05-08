@@ -9,12 +9,11 @@ const commentTemplate = commentsList.querySelector('.social__comment');
 const descriptionNode = bigPicture.querySelector('.social__caption');
 const showedCommentsCount = bigPicture.querySelector('.showed-comments-count');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
-let currentComments = undefined;
+const revealMoreButton = document.querySelector('.comments-loader');
 
-
-const revealComments = function(offset) {
-  let revealedCommentsCount = +showedCommentsCount.textContent;
-  currentComments.slice(revealedCommentsCount, revealedCommentsCount + offset).forEach((comment) => {
+function revealComments(comments, revealedCommentsCount) {
+  let counter = 0;
+  comments.forEach((comment) => {
     const commentNode = commentTemplate.cloneNode(true);
     const commentImage = commentNode.querySelector('img');
     commentImage.src = comment.avatar;
@@ -22,18 +21,13 @@ const revealComments = function(offset) {
     commentNode.querySelector('p').textContent = comment.message;
 
     commentsList.append(commentNode);
-    revealedCommentsCount++;
+    counter++;
   });
-
-  showedCommentsCount.textContent = revealedCommentsCount;
-  if (currentComments.length === revealedCommentsCount) {
-    document.querySelector('.comments-loader').classList.add('hidden');
-  } else {
-    document.querySelector('.comments-loader').classList.remove('hidden');
-  }
+  return counter;
 };
 
 const revealMiniature = function(url, likes, comments, description) {
+  let revealedCommentsCount = 0;
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
@@ -43,12 +37,18 @@ const revealMiniature = function(url, likes, comments, description) {
   commentsCount.textContent = comments.length;
   descriptionNode.textContent = description;
   showedCommentsCount.textContent = 0;
-  currentComments = comments;
-  revealComments(5);
 
-  document.querySelector('.comments-loader').addEventListener('click', () => {
-    revealComments(5);
+  revealMoreButton.addEventListener('click', function() { 
+    revealedCommentsCount += revealComments(comments.slice(revealedCommentsCount, revealedCommentsCount + 5), revealedCommentsCount);
+    showedCommentsCount.textContent = revealedCommentsCount;
+    if (comments.length === revealedCommentsCount) {
+      revealMoreButton.classList.add('hidden');
+    } else {
+      revealMoreButton.classList.remove('hidden');
+    }
   });
+
+  revealMoreButton.click();
 };
 
 const closeMiniature = function() {

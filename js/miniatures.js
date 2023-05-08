@@ -17,4 +17,10 @@ const createMiniature = function(miniatureData) {
   miniaturesList.append(miniaturesListFragment);
 };
 
-export { createMiniature };
+const renderPhotos = function(photos) {
+  photos.forEach(photo => {
+    createMiniature(photo);
+  });
+};
+
+export { renderPhotos };
