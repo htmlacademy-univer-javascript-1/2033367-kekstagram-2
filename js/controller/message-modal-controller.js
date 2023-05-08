@@ -1,7 +1,11 @@
-import { isEscapeKey } from "../util.js";
+import { isEscapeKey } from '../util.js';
 
 const successMessageTemplate = document.getElementById('success');
 const errorMessageTemplate = document.getElementById('error');
+
+const hideMessage = (message) => {
+  message.remove();
+};
 
 const showSuccessMessage = (successText) => {
   const successMessage = successMessageTemplate.content.querySelector('.success').cloneNode(true);
@@ -14,8 +18,8 @@ const showSuccessMessage = (successText) => {
     hideMessage(successMessage);
   });
 
-  document.addEventListener('keydown', (evt) => { 
-    if(isEscapeKey(evt)) { 
+  document.addEventListener('keydown', (evt) => {
+    if(isEscapeKey(evt)) {
       evt.preventDefault();
       hideMessage(successMessage);
     }
@@ -36,10 +40,10 @@ const showErrorMessage = (errorText) => {
 
   errorMessage.querySelector('.error__button').addEventListener('click', (evt) => {
     evt.preventDefault();
-    hideMessage(errorMessage);  
+    hideMessage(errorMessage);
   });
 
-  document.addEventListener('keydown', (evt) => { 
+  document.addEventListener('keydown', (evt) => {
     if(isEscapeKey(evt)) {
       evt.preventDefault();
       hideMessage(errorMessage);
@@ -53,8 +57,4 @@ const showErrorMessage = (errorText) => {
   document.body.appendChild(errorMessage);
 };
 
-const hideMessage = (message) => {
-  message.remove();
-};
-
-export { showSuccessMessage, showErrorMessage }
+export { showSuccessMessage, showErrorMessage };

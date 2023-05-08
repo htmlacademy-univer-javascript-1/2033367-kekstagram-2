@@ -18,7 +18,7 @@ const createMiniature = function(miniatureData) {
 };
 
 const renderPhotos = function(photos) {
-  photos.forEach(photo => {
+  photos.forEach((photo) => {
     createMiniature(photo);
   });
 };

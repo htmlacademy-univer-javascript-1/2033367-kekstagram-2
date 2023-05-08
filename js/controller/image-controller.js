@@ -11,7 +11,7 @@ const showedCommentsCount = bigPicture.querySelector('.showed-comments-count');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 const revealMoreButton = document.querySelector('.comments-loader');
 
-function revealComments(comments, revealedCommentsCount) {
+function revealComments(comments) {
   let counter = 0;
   comments.forEach((comment) => {
     const commentNode = commentTemplate.cloneNode(true);
@@ -24,7 +24,7 @@ function revealComments(comments, revealedCommentsCount) {
     counter++;
   });
   return counter;
-};
+}
 
 const revealMiniature = function(url, likes, comments, description) {
   let revealedCommentsCount = 0;
@@ -38,8 +38,8 @@ const revealMiniature = function(url, likes, comments, description) {
   descriptionNode.textContent = description;
   showedCommentsCount.textContent = 0;
 
-  revealMoreButton.addEventListener('click', function() { 
-    revealedCommentsCount += revealComments(comments.slice(revealedCommentsCount, revealedCommentsCount + 5), revealedCommentsCount);
+  revealMoreButton.addEventListener('click', function() {
+    revealedCommentsCount += revealComments(comments.slice(revealedCommentsCount, revealedCommentsCount + 5));
     showedCommentsCount.textContent = revealedCommentsCount;
     if (comments.length === revealedCommentsCount) {
       revealMoreButton.classList.add('hidden');

@@ -8,15 +8,15 @@ const getPhotos = (onSuccess, onFail) => {
 };
 
 const postPhoto = (onSuccess, onFail, body) => {
-  fetch('https://26.javascript.pages.academy/kekstagram', 
-  {
-    method: 'POST',
-    body,
-    // headers: {
-    //   'Content-Type': 'multipart/form-data', 
-    // },
-    // mode: 'no-cors',
-  })
+  fetch('https://26.javascript.pages.academy/kekstagram',
+    {
+      method: 'POST',
+      body,
+      // headers: {
+      //   'Content-Type': 'multipart/form-data',
+      // },
+      // mode: 'no-cors',
+    })
     .then((response) => {
       if(response.ok) {
         onSuccess('Фотография успешно загружена!');
@@ -29,4 +29,4 @@ const postPhoto = (onSuccess, onFail, body) => {
     });
 };
 
-export { getPhotos, postPhoto }
+export { getPhotos, postPhoto };

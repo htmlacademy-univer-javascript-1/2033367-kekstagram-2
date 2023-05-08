@@ -124,7 +124,7 @@ function resetUploadModal() {
   changePreviewScale(1);
   effectSliderElement.hidden = true;
   uploadModalForm.reset();
-};
+}
 
 function openUploadModal() {
   effectSliderElement.hidden = true;
@@ -155,7 +155,7 @@ uploadModalCloseElement.addEventListener('click', (evt) => {
 uploadModalForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
-  if(pristine.validate()) { 
+  if(pristine.validate()) {
     blockSubmitButton();
     postPhoto(
       (successText) => {
