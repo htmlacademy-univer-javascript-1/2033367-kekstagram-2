@@ -38,7 +38,7 @@ const revealMiniature = function(url, likes, comments, description) {
   descriptionNode.textContent = description;
   showedCommentsCount.textContent = 0;
 
-  revealMoreButton.addEventListener('click', function() {
+  revealMoreButton.addEventListener('click', () => {
     revealedCommentsCount += revealComments(comments.slice(revealedCommentsCount, revealedCommentsCount + 5));
     showedCommentsCount.textContent = revealedCommentsCount;
     if (comments.length === revealedCommentsCount) {
