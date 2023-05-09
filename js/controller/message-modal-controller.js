@@ -1,60 +1,46 @@
 import { isEscapeKey } from '../util.js';
 
-const successMessageTemplate = document.getElementById('success');
-const errorMessageTemplate = document.getElementById('error');
+const successMessage = document.getElementById('success').content.querySelector('.success');
+const errorMessage = document.getElementById('error').content.querySelector('.error');
 
 const hideMessage = (message) => {
   message.remove();
 };
 
-const showSuccessMessage = (successText) => {
-  const successMessage = successMessageTemplate.content.querySelector('.success').cloneNode(true);
+const createMessage = (text, templateContent, title, button) => {
+  const message = templateContent.cloneNode(true);
 
-  successMessage.style.zIndex = 5;
-  successMessage.querySelector('.success__title').textContent = successText;
+  message.style.zIndex = 5;
+  message.querySelector(title).textContent = text;
 
-  successMessage.querySelector('.success__button').addEventListener('click', (evt) => {
+  message.querySelector(button).addEventListener('click', (evt) => {
     evt.preventDefault();
-    hideMessage(successMessage);
+    hideMessage(message);
   });
 
   document.addEventListener('keydown', (evt) => {
     if(isEscapeKey(evt)) {
       evt.preventDefault();
-      hideMessage(successMessage);
+      hideMessage(message);
     }
   });
 
-  document.addEventListener('click', () => {
-    hideMessage(successMessage);
-  });
-
-  document.body.appendChild(successMessage);
-};
-
-const showErrorMessage = (errorText) => {
-  const errorMessage = errorMessageTemplate.content.querySelector('.error').cloneNode(true);
-
-  errorMessage.style.zIndex = 5;
-  errorMessage.querySelector('.error__title').textContent = errorText;
-
-  errorMessage.querySelector('.error__button').addEventListener('click', (evt) => {
+  message.addEventListener('click', (evt) => {
     evt.preventDefault();
-    hideMessage(errorMessage);
-  });
-
-  document.addEventListener('keydown', (evt) => {
-    if(isEscapeKey(evt)) {
-      evt.preventDefault();
-      hideMessage(errorMessage);
+    if(evt.target === message) {
+      hideMessage(message);
     }
   });
 
-  document.addEventListener('click', () => {
-    hideMessage(errorMessage);
-  });
-
-  document.body.appendChild(errorMessage);
+  document.body.appendChild(message);
 };
 
-export { showSuccessMessage, showErrorMessage };
+const showMessage = (text, isError) => {
+  if(isError) {
+    createMessage(text, errorMessage, '.error__title', '.error__button');
+  } else {
+    createMessage(text, successMessage, '.success__title', '.success__button');
+  }
+};
+
+export { showMessage };

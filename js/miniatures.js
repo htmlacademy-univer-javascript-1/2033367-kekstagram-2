@@ -1,4 +1,4 @@
-import { revealMiniature } from './controller/image-controller.js';
+import { revealPicture } from './controller/image-controller.js';
 
 const miniatureTemplate = document.querySelector('#picture').content;
 const miniaturesList = document.querySelector('.pictures');
@@ -10,7 +10,7 @@ const createMiniature = function(miniatureData) {
   miniature.querySelector('.picture__likes').textContent = miniatureData.likes;
   miniature.querySelector('.picture__comments').textContent = miniatureData.comments.length;
   miniature.querySelector('.picture__img').addEventListener('click', () => {
-    revealMiniature(miniatureData.url, miniatureData.likes, miniatureData.comments, miniatureData.description);
+    revealPicture(miniatureData.url, miniatureData.likes, miniatureData.comments, miniatureData.description);
   });
   miniaturesListFragment.appendChild(miniature);
   miniaturesList.append(miniaturesListFragment);

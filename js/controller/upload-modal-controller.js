@@ -1,6 +1,6 @@
 import { isEscapeKey } from '../util.js';
 import { postPhoto } from '../api.js';
-import { showSuccessMessage, showErrorMessage } from './message-modal-controller.js';
+import { showMessage } from './message-modal-controller.js';
 import '../../nouislider/nouislider.js';
 
 const uploadModalElement = document.querySelector('.img-upload__overlay');
@@ -159,12 +159,12 @@ uploadModalForm.addEventListener('submit', (evt) => {
     blockSubmitButton();
     postPhoto(
       (successText) => {
-        showSuccessMessage(successText);
+        showMessage(successText, false);
         unblockSubmitButton();
         closeUploadModal();
       },
       (errorText) => {
-        showErrorMessage(errorText);
+        showMessage(errorText, true);
         unblockSubmitButton();
       },
       new FormData(evt.target),
