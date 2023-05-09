@@ -1,10 +1,17 @@
-import { getRandom } from '../util.js';
-import { renderPhotos } from '../miniatures.js';
+import { getRandomArrayElements } from '../util.js';
 import { receivePhotos } from '../main.js';
 import { debounce } from '../util.js';
 
 const filtersSection = document.querySelector('.img-filters');
 const filterButtons = document.querySelectorAll('.img-filters__button');
+
+const compareCommentsCount = (a, b) => b.comments.length > a.comments.length ? 1 : -1;
+
+const filters = {
+  'filter-default': (photos) => photos,
+  'filter-random': (photos) => getRandomArrayElements(photos, 10),
+  'filter-discussed': (photos) => photos.slice().sort(compareCommentsCount),
+};
 
 const inactiveAllButtons = () => {
   filterButtons.forEach((button) => {
@@ -16,33 +23,18 @@ function revealFilters() {
   filtersSection.classList.remove('img-filters--inactive');
 
   filterButtons.forEach((button) => {
-    button.addEventListener('click', debounce(() => {
+    button.addEventListener('click', () => {
       inactiveAllButtons();
       button.classList.add('img-filters__button--active');
-      receivePhotos();
-    }));
+    });
+
+    button.addEventListener('click', debounce(receivePhotos, 500));
   });
 }
 
-const compareCommentsCount = (a, b) => b.comments.length > a.comments.length ? 1 : -1;
-
-const applyDefaultFilter = (photos) => photos;
-
-const applyRandomFilter = (photos) => getRandom(photos, 10);
-
-const applyDiscussedFilter = (photos) => photos.slice().sort(compareCommentsCount);
-
 function applyFilter(photos) {
-  let filteredPhotos = photos;
   const currentFilter = document.querySelector('.img-filters__button--active');
-  if(currentFilter.id === 'filter-default') {
-    filteredPhotos = applyDefaultFilter(photos);
-  } else if (currentFilter.id === 'filter-random') {
-    filteredPhotos = applyRandomFilter(photos);
-  } else if (currentFilter.id === 'filter-discussed') {
-    filteredPhotos = applyDiscussedFilter(photos);
-  }
-  renderPhotos(filteredPhotos);
+  return filters[currentFilter.id](photos);
 }
 
 export { revealFilters, applyFilter };

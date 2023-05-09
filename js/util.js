@@ -4,7 +4,7 @@ const getRandomNumber = function(leftEdge, rightEdge) {
   return Math.floor(Math.random() * (maximum - minimum + 1) + minimum);
 };
 
-function getRandom(arr, n) {
+function getRandomArrayElements(arr, n) {
   const result = new Array(n);
   let len = arr.length;
   const taken = new Array(len);
@@ -28,4 +28,4 @@ function debounce(callback, timeoutDelay = 500) {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export { getRandom, getRandomNumber, debounce, isEscapeKey };
+export { getRandomArrayElements, getRandomNumber, debounce, isEscapeKey };

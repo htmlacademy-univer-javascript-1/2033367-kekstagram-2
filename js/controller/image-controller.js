@@ -26,7 +26,7 @@ function revealComments(comments) {
   return counter;
 }
 
-const revealMiniature = function(url, likes, comments, description) {
+const revealPicture = function(url, likes, comments, description) {
   let revealedCommentsCount = 0;
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
@@ -51,17 +51,17 @@ const revealMiniature = function(url, likes, comments, description) {
   revealMoreButton.click();
 };
 
-const closeMiniature = function() {
+const closePicture = function() {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
 };
 
-closeButton.addEventListener('click', closeMiniature);
+closeButton.addEventListener('click', closePicture);
 document.body.addEventListener('keydown', (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeMiniature();
+    closePicture();
   }
 });
 
-export { revealMiniature };
+export { revealPicture };
