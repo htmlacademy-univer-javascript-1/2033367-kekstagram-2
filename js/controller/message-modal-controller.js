@@ -7,23 +7,11 @@ const hideMessage = (message) => {
   message.remove();
 };
 
-const showMessage = (text, isError) => {
-  if(isError) {
-    createMessage(text, errorMessage, '.error__title', '.error__button');
-  } else {
-    createMessage(text, successMessage, '.success__title', '.success__button');
-  }
-}
-
 const createMessage = (text, templateContent, title, button) => {
   const message = templateContent.cloneNode(true);
 
   message.style.zIndex = 5;
   message.querySelector(title).textContent = text;
-
-  const hide = () => {
-    hideMessage(message);
-  };
 
   message.querySelector(button).addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -45,6 +33,14 @@ const createMessage = (text, templateContent, title, button) => {
   });
 
   document.body.appendChild(message);
+};
+
+const showMessage = (text, isError) => {
+  if(isError) {
+    createMessage(text, errorMessage, '.error__title', '.error__button');
+  } else {
+    createMessage(text, successMessage, '.success__title', '.success__button');
+  }
 };
 
 export { showMessage };
